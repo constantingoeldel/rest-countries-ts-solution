@@ -3,50 +3,62 @@ import styled from 'styled-components'
 
 import { Country } from '../App'
 
-export default function CountryDetail(country: Country) {
+export default function CountryDetail({
+  flag,
+  name,
+  nativeName,
+  population,
+  region,
+  subregion,
+  capital,
+  topLevelDomain,
+  currencies,
+  languages,
+  borders,
+}: Country) {
   return (
     <Details>
-      <Flag src={country.flag}></Flag>
-      <Name>{country.name}</Name>
+      <Flag src={flag}></Flag>
+      <Name>{name}</Name>
       <FactList>
         <Fact>
           <b>Native Name:</b>
-          {country.nativeName}
+          {nativeName}
         </Fact>
         <Fact>
           <b>Population:</b>
-          {country.population}
+          {population}
         </Fact>
         <Fact>
           <b>Region:</b>
-          {country.region}
+          {region}
         </Fact>
         <Fact>
           <b>Sub Region:</b>
-          {country.subregion}
+          {subregion}
         </Fact>
         <Fact>
           <b>Capital:</b>
-          {country.capital}
+          {capital}
         </Fact>
       </FactList>
       <FactList>
         <Fact>
           <b>Top Level Domain:</b>
-          {country.topLevelDomain}
+          {topLevelDomain}
         </Fact>
         <Fact>
           <b>Currencies:</b>
-          {country.currencies}
+          {currencies}
         </Fact>
         <Fact>
           <b>Languages:</b>
-          {country.languages}
+          {languages}
         </Fact>
       </FactList>
       <Borders>Border Countries</Borders>
       <BordersList>
-        {country.borders.map((border: string) => {
+        {borders.map((border: string) => {
           ;<Border>{border}</Border>
         })}
       </BordersList>

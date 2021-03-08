@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Header from './components/Header'
 import CountryCard from './components/CountryCard'
 import CountryDetail from './components/CountryDetail'
+import BackButton from './components/BackButton'
 
 export type Country = {
   currencies: {
@@ -54,10 +55,23 @@ export default function App() {
             />
           ))}
         {detailedCountry && countryData && (
-          <CountryDetail
-            key={countryData[detailedCountry].name}
-            country={countryData[detailedCountry]}
-          />
+          <>
+            <BackButton onClick={() => setDetailedCountry(null)} />
+            <CountryDetail
+              key={countryData[detailedCountry].name}
+              name={countryData[detailedCountry].name}
+              flag={countryData[detailedCountry].flag}
+              population={countryData[detailedCountry].population}
+              nativeName={countryData[detailedCountry].nativeName}
+              topLevelDomain={countryData[detailedCountry].topLevelDomain}
+              currencies={countryData[detailedCountry].currencies}
+              borders={countryData[detailedCountry].borders}
+              capital={countryData[detailedCountry].capital}
+              languages={countryData[detailedCountry].languages}
+              region={countryData[detailedCountry].region}
+              subregion={countryData[detailedCountry].subregion}
+            />
+          </>
         )}
       </Main>
     </>
