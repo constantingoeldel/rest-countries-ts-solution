@@ -1,8 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-export default function BackButton() {
-  return <Button>Back</Button>
+type Props = {
+  onClick: () => {}
+}
+
+export default function BackButton({ onClick }: Props) {
+  return <Button onClick={onClick}>Back</Button>
 }
 
 const Button = styled.button``

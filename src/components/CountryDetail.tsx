@@ -3,64 +3,56 @@ import styled from 'styled-components'
 
 import { Country } from '../App'
 
-export default function CountryDetail({
-  flag,
-  name,
-  nativeName,
-  population,
-  region,
-  subregion,
-  capital,
-  topLevelDomain,
-  currencies,
-  languages,
-  borders,
-}: Country) {
+type Props = {
+  props: Country
+}
+
+export default function CountryDetail({ props }: Props) {
   return (
     <Details>
-      <Flag src={flag}></Flag>
-      <Name>{name}</Name>
+      <Flag src={props.flag}></Flag>
+      <Name>{props.name}</Name>
       <FactList>
         <Fact>
           <b>Native Name:</b>
-          {nativeName}
+          {props.nativeName}
         </Fact>
         <Fact>
           <b>Population:</b>
-          {population}
+          {props.population}
         </Fact>
         <Fact>
           <b>Region:</b>
-          {region}
+          {props.region}
         </Fact>
         <Fact>
           <b>Sub Region:</b>
-          {subregion}
+          {props.subregion}
         </Fact>
         <Fact>
           <b>Capital:</b>
-          {capital}
+          {props.capital}
         </Fact>
       </FactList>
       <FactList>
         <Fact>
           <b>Top Level Domain:</b>
-          {topLevelDomain}
+          {props.topLevelDomain}
         </Fact>
         <Fact>
           <b>Currencies:</b>
-          {currencies}
+          {props.currencies}
         </Fact>
         <Fact>
           <b>Languages:</b>
-          {languages}
+          {props.languages}
         </Fact>
       </FactList>
       <Borders>Border Countries</Borders>
       <BordersList>
-        {borders.map((border: string) => {
-          ;<Border>{border}</Border>
-        })}
+        {props.borders.map(border => (
+          <Border>{border}</Border>
+        ))}
       </BordersList>
     </Details>
   )

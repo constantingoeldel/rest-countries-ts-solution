@@ -56,20 +56,10 @@ export default function App() {
           ))}
         {detailedCountry && countryData && (
           <>
-            <BackButton onClick={() => setDetailedCountry(null)} />
+            <BackButton onClick={() => setDetailedCountry} />
             <CountryDetail
               key={countryData[detailedCountry].name}
-              name={countryData[detailedCountry].name}
-              flag={countryData[detailedCountry].flag}
-              population={countryData[detailedCountry].population}
-              nativeName={countryData[detailedCountry].nativeName}
-              topLevelDomain={countryData[detailedCountry].topLevelDomain}
-              currencies={countryData[detailedCountry].currencies}
-              borders={countryData[detailedCountry].borders}
-              capital={countryData[detailedCountry].capital}
-              languages={countryData[detailedCountry].languages}
-              region={countryData[detailedCountry].region}
-              subregion={countryData[detailedCountry].subregion}
+              props={countryData[detailedCountry]}
             />
           </>
         )}
