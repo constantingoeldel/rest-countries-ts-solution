@@ -2,67 +2,91 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { Country } from '../App'
+import Flag from './Flag'
 
-type Props = {
-  props: Country
-}
-
-export default function CountryDetail({ props }: Props) {
+export default function CountryDetail({
+  detailedCountry,
+  setDetailedCountryCode,
+}: {
+  detailedCountry: Country
+  setDetailedCountryCode: React.Dispatch<React.SetStateAction<string | null>>
+}) {
+  const {
+    flag,
+    name,
+    population,
+    region,
+    subregion,
+    capital,
+    topLevelDomain,
+    currencies,
+    nativeName,
+    languages,
+    borders,
+  } = detailedCountry
   return (
     <Details>
-      <Flag src={props.flag}></Flag>
-      <Name>{props.name}</Name>
+      <Flag src={flag} />
+      <Name>{name}</Name>
       <FactList>
         <Fact>
           <b>Native Name:</b>
-          {props.nativeName}
+          {nativeName}
         </Fact>
         <Fact>
           <b>Population:</b>
-          {props.population}
+          {population}
         </Fact>
         <Fact>
           <b>Region:</b>
-          {props.region}
+          {region}
         </Fact>
         <Fact>
           <b>Sub Region:</b>
-          {props.subregion}
+          {subregion}
         </Fact>
         <Fact>
           <b>Capital:</b>
-          {props.capital}
+          {capital}
         </Fact>
       </FactList>
       <FactList>
         <Fact>
           <b>Top Level Domain:</b>
-          {props.topLevelDomain}
+          {topLevelDomain[0]}
         </Fact>
         <Fact>
           <b>Currencies:</b>
-          {props.currencies}
+          {listItems(currencies)}
         </Fact>
         <Fact>
           <b>Languages:</b>
-          {props.languages}
+          {listItems(languages)}
         </Fact>
       </FactList>
       <Borders>Border Countries</Borders>
       <BordersList>
-        {props.borders.map(border => (
-          <Border>{border}</Border>
+        {borders.map(border => (
+          <Border
+            onClick={event => {
+              event.preventDefault()
+              setDetailedCountryCode(border)
+            }}
+            key={border}>
+            {border}
+          </Border>
         ))}
       </BordersList>
     </Details>
   )
+  function listItems(items: { name: string }[]): string[] {
+    return items.map(item => item.name)
+  }
 }
 
 const Details = styled.div`
   background: var(--lightmodeBackground);
 `
-
-const Flag = styled.img``
 
 const Name = styled.h3``
 
@@ -72,6 +96,8 @@ const FactList = styled.ul``
 
 const Fact = styled.li``
 
-const BordersList = styled.ul``
+const BordersList = styled.div`
+  display: flex;
+`
 
-const Border = styled.li``
+const Border = styled.button``

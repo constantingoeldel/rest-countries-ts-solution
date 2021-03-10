@@ -1,17 +1,24 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-interface CountryProps {
-  flag: string
-  name: string
-  population: number
-  region: string
-  capital: string
-}
-export default function CountryCard({ flag, name, population, region, capital }: CountryProps) {
+import { Country } from '../App'
+import Flag from './Flag'
+
+export default function CountryCard({
+  country,
+  onClick,
+}: {
+  country: Country
+  onClick: () => void
+}) {
+  const { flag, population, capital, region, name } = country
   return (
-    <Card>
-      <Flag src={flag}></Flag>
+    <Card
+      onClick={event => {
+        event.preventDefault()
+        onClick()
+      }}>
+      <Flag src={flag} />
       <Name>{name}</Name>
       <FactList>
         <Fact>
@@ -34,8 +41,6 @@ export default function CountryCard({ flag, name, population, region, capital }:
 const Card = styled.div`
   background: white;
 `
-
-const Flag = styled.img``
 
 const Name = styled.h3``
 

@@ -6,7 +6,8 @@ import CountryCard from './components/CountryCard'
 import CountryDetail from './components/CountryDetail'
 import BackButton from './components/BackButton'
 
-export type Country = {
+export interface Country {
+  alpha3Code: string
   currencies: {
     code: string
     name: string
@@ -28,40 +29,36 @@ export type Country = {
   nativeName: string
   flag: string
 }
-type CountryData = Country[]
 
 export default function App() {
-  const [countryData, setCountryData] = useState<CountryData | null>(null)
-  const [detailedCountry, setDetailedCountry] = useState<number | null>(null)
-  // const [darkmode, setDarkmode] = useState(false)
+  const [countryData, setCountryData] = useState<Country[] | null>(null)
+  const [detailedCountryCode, setDetailedCountryCode] = useState<string | null>(null)
   useEffect(() => {
     fetchCountryData()
   }, [])
+  const detailedCountry =
+    countryData?.filter(country => country.alpha3Code === detailedCountryCode)[0] || null
 
-  console.log(countryData)
   return (
     <>
-      <Header></Header>
+      <Header />
       <Main>
-        {detailedCountry ??
-          countryData?.map((country: Country) => (
-            <CountryCard
-              flag={country.flag}
-              name={country.name}
-              capital={country.capital}
-              population={country.population}
-              region={country.region}
-              key={country.name}
-            />
-          ))}
-        {detailedCountry && countryData && (
+        {detailedCountryCode && detailedCountry ? (
           <>
-            <BackButton onClick={() => setDetailedCountry} />
+            <BackButton onClick={() => setDetailedCountryCode(null)} />
             <CountryDetail
-              key={countryData[detailedCountry].name}
-              props={countryData[detailedCountry]}
+              detailedCountry={detailedCountry}
+              setDetailedCountryCode={setDetailedCountryCode}
             />
           </>
+        ) : (
+          countryData?.map((country: Country) => (
+            <CountryCard
+              key={country.alpha3Code}
+              country={country}
+              onClick={() => setDetailedCountryCode(country.alpha3Code)}
+            />
+          ))
         )}
       </Main>
     </>
@@ -69,7 +66,7 @@ export default function App() {
 
   function fetchCountryData(): void {
     fetch(
-      'https://restcountries.eu/rest/v2/all?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag'
+      'https://restcountries.eu/rest/v2/all?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag;alpha3Code'
     )
       .then(res => res.json())
       .then(res => setCountryData(res))

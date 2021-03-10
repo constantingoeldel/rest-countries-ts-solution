@@ -10,10 +10,7 @@ export default function Header() {
   )
 }
 
-const SiteHeader = styled.header`
-  height: 10vh;
-  position: fixed;
-`
+const SiteHeader = styled.header``
 const Title = styled.h1`
   font-weight: 800;
 `
